@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-// import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/widgets.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
@@ -45,7 +45,6 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> bannerUrls = _getBannerPromo();
-    // print("banner url: $bannerUrls");
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -79,35 +78,51 @@ class Home extends StatelessWidget {
             )
           ],
         ),
-        body: CarouselSlider(
-            items: bannerUrls.map((i) {
-              return Builder(
-                builder: (BuildContext context) {
-                  return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Container(
-                        margin: const EdgeInsets.all(5.0),
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(15.5)),
-                          child: Stack(
-                            children: [
-                              Image.asset(
-                                i,
-                                height: 300,
-                              )
-                            ],
-                          ),
+        body: ListView(padding: const EdgeInsets.all(10.0), children: [
+          CarouselSlider(
+              items: bannerUrls.map((i) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                        child: Container(
+                      child: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15.5)),
+                        child: Stack(
+                          children: [
+                            Image.asset(i),
+                          ],
                         ),
-                      ));
-                },
-              );
-            }).toList(),
-            options: CarouselOptions(
-                autoPlay: true,
-                enableInfiniteScroll: true,
-                viewportFraction: 1,
-                autoPlayInterval: const Duration(seconds: 5))),
+                      ),
+                    ));
+                  },
+                );
+              }).toList(),
+              options: CarouselOptions(
+                  autoPlay: true,
+                  enableInfiniteScroll: true,
+                  viewportFraction: 1,
+                  autoPlayInterval: const Duration(seconds: 5))),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Beverages",
+                style: TextStyle(fontSize: 15),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  'View all',
+                  style: TextStyle(
+                      fontFamily: 'varela',
+                      fontSize: 15.0,
+                      color: Color.fromARGB(255, 199, 138, 40)),
+                ),
+              ),
+            ],
+          ),
+        ]),
       ),
     );
   }
